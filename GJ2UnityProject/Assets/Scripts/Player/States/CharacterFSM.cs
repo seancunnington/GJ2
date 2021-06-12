@@ -31,13 +31,14 @@ public class CharacterFSM : MonoBehaviour
      public LayerMask surfaceDetectionMask;
 
      CharacterPhysics _characterPhysics;
-
+     LevelManager _levelManager;
 
 
 
 
      private void Awake()
      {
+          _levelManager = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>();
           _characterPhysics = GetComponent<CharacterPhysics>();
           PlantingReticle.SetActive(false);
      }
@@ -102,7 +103,8 @@ public class CharacterFSM : MonoBehaviour
           Vector3 seedPosition = FindPlantingHeight(positionFromRightArch);
 
           // Create a seed at the new position
-          GameObject newSeed = Instantiate(seed, seedPosition, seed.transform.rotation);
+          Transform seedParent = _levelManager.currentLoadedLevel.transform;
+          GameObject newSeed = Instantiate(seed, seedPosition, seed.transform.rotation, seedParent);
      }
 
 

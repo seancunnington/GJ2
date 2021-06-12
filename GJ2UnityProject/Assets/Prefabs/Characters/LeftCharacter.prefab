@@ -309,6 +309,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   allowMove: 1
+  allowLevitate: 1
+  coolDownTimeAmount: 10
+  coolDownTimer: 0
   rayDistance: 4
   rideHeight: 2
   rideSpringStrength: 100
@@ -331,7 +334,7 @@ MonoBehaviour:
   rightArchPoint: {fileID: 0}
   seed: {fileID: 7342212646595152648, guid: e118f9b3d3c5e0b439bba3b70a07b8a9, type: 3}
   PlantingReticle: {fileID: 2011776256}
-  reticleOffset: 2
+  reticleOffset: 3
   reticleHeight: 0.7
   reticleCancelWeight: 1
   plantingHeightCheck: 500
