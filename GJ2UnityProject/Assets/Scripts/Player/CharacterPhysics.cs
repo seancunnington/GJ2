@@ -11,6 +11,11 @@ public class CharacterPhysics : MonoBehaviour
 
      public LayerMask surfaceDetectionMask;
 
+     public bool allowMove = true;
+     public bool allowLevitate = true;
+     public float coolDownTimeAmount = 10f;
+     public float coolDownTimer = 0f;
+
      #endregion
 
      #region Private Variables
@@ -18,9 +23,8 @@ public class CharacterPhysics : MonoBehaviour
      private Rigidbody _rigidbody;
      private CapsuleCollider _collider;
 
-     //private Vector3 direction = new Vector3();
+     Vector3 playerInput;
      Vector3 velocity, desiredVelocity;
-     //private Vector3 speed = new Vector3();
 
      private Vector3 surfaceDetectionRay = new Vector3();
      [SerializeField] private float rayDistance = 1.5f;
@@ -43,14 +47,21 @@ public class CharacterPhysics : MonoBehaviour
      {
           surfaceDetectionRay = transform.position - new Vector3(0, rayDistance, 0);
 
-          // Input
-          Vector2 playerInput = new Vector2();
-          playerInput.x = Input.GetAxis("Horizontal");
-          playerInput.y = Input.GetAxis("Vertical");
-          playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+          if (allowMove)
+          {
+               playerInput.x = Input.GetAxis("Horizontal");
+               playerInput.y = Input.GetAxis("Vertical");
+               playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+          }
+          else
+               playerInput = Vector2.zero;
 
           // Set the desired velocity
           desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+
+          // Reduce the cooldown timer
+          if (coolDownTimer > 0f)
+               coolDownTimer -= Time.deltaTime;
      }
 
 
@@ -65,8 +76,8 @@ public class CharacterPhysics : MonoBehaviour
           // Update PhysX velocity
           _rigidbody.velocity = velocity;
 
-          LevitateObject();
-          //MoveObject();
+          if (allowLevitate)
+               LevitateObject();
      }
 
 
@@ -109,17 +120,10 @@ public class CharacterPhysics : MonoBehaviour
      }
 
 
-     private void MoveObject()
+     public void DisableLevitate()
      {
-
-
-
-          //_rigidbody.AddForce(direction * maxSpeed, ForceMode.VelocityChange);
+          allowLevitate = false;
+          coolDownTimer = coolDownTimeAmount;
      }
 
-
-     public void SetDirection(Vector2 input)
-     {
-          //direction = new Vector3(input.x, 0f, input.y);
-     }
 }
