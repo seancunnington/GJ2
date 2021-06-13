@@ -151,7 +151,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3163838280649292199}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.847977, y: -8.036678, z: -11.42148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e48e984baec9ce439f7e1c1bdae793c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleScreenLevel: 1
   leftCharacter: {fileID: 0}
   rightCharacter: {fileID: 0}
   leftGoalPointActivated: 0
@@ -179,18 +180,29 @@ MonoBehaviour:
   leftStartingPoint: {fileID: 0}
   rightStartingPoint: {fileID: 0}
   levelList:
+  - levelPrefab: {fileID: 0}
+    backgroundMusic: {fileID: 8300000, guid: 2d0b86016fb24e145a06ca5ff9ae2a60, type: 3}
   - levelPrefab: {fileID: 1733010376602653168, guid: f537c0e7f46040742a039edd7ebebe76,
       type: 3}
     backgroundMusic: {fileID: 8300000, guid: 167bf553db478e94b9b8b5a3a2a26364, type: 3}
   - levelPrefab: {fileID: 8760700217860193949, guid: 76e8d082a35c72d4b928e9c71639cafb,
       type: 3}
     backgroundMusic: {fileID: 8300000, guid: 7bfcd36e3ff74fd45a6010ce51472617, type: 3}
+  - levelPrefab: {fileID: 1733010376602653168, guid: db37268388a1b30478b2b036e13bc950,
+      type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 9582a282ed824b24a871c9c1e9b37c0b, type: 3}
+  - levelPrefab: {fileID: 1733010376602653168, guid: db37268388a1b30478b2b036e13bc950,
+      type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 8009eefa0c78cb2478c8597bfc376c13, type: 3}
   currentLevelIndex: 0
   currentLoadedLevel: {fileID: 0}
   _audio_1: {fileID: 3163838280782391793}
   _audio_2: {fileID: 3163838279939265262}
   fadeOut_1: 0
   fadeSpeed: 0.3
+  uiCanvas: {fileID: 0}
+  uiImage: {fileID: 0}
+  winCard: {fileID: 0}
 --- !u!1 &3163838280782391792
 GameObject:
   m_ObjectHideFlags: 0
