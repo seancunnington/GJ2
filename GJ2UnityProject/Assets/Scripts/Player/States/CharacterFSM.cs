@@ -19,6 +19,12 @@ public class CharacterFSM : MonoBehaviour
      }
      public State state = State.Moving;
 
+     public Texture leftPose;
+     public Texture rightPose;
+     public Texture backPose;
+     public Texture forwardPose;
+     public Renderer _renderer;
+
      public GameObject leftArchPoint;
      public GameObject rightArchPoint;
 
@@ -62,6 +68,8 @@ public class CharacterFSM : MonoBehaviour
                // Allow movement
                _characterPhysics.allowMove = true;
 
+               // Animate
+               SimpleAnimate();
 
                // Transitions
                if (Input.GetButtonDown("Plant"))
@@ -104,6 +112,40 @@ public class CharacterFSM : MonoBehaviour
                     // Transition
                     state = State.Moving;
                }
+          }
+     }
+
+
+     void SimpleAnimate()
+     {
+          Vector3 direction = GetDirection();
+
+          // Left
+          if (direction.x < 0)
+          {
+               Debug.Log("Anim Left");
+               _renderer.material.SetTexture("_MainTex", leftPose);
+          }
+
+          // Right
+          if (direction.x > 0)
+          {
+               Debug.Log("Anim Right");
+               _renderer.material.SetTexture("_MainTex", rightPose);
+          }
+
+          // Up
+          if (direction.z > 0)
+          {
+               Debug.Log("Anim Forward");
+               _renderer.material.SetTexture("_MainTex", forwardPose);
+          }
+
+          // Down
+          if (direction.z < 0)
+          {
+               Debug.Log("Anim Back");
+               _renderer.material.SetTexture("_MainTex", backPose);
           }
      }
 
