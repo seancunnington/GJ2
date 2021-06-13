@@ -33,7 +33,9 @@ public class LevelManager : MonoBehaviour
      public GameObject uiCanvas;
      public Image uiImage;
 
+     public Animation screenTransition;
      public Animation winCard;
+     bool lookForLoad = false;
 
      private void Awake()
      {
@@ -41,7 +43,7 @@ public class LevelManager : MonoBehaviour
           titleScreenLevel = true;
           uiCanvas.SetActive(false);
           currentLevelIndex = -1;
-          LoadLevel();
+          LoadLevelDetails();
      }
 
 
@@ -56,12 +58,26 @@ public class LevelManager : MonoBehaviour
                {
                     titleScreenLevel = false;
                     uiCanvas.SetActive(true);
-                    LoadLevel();
+                    PlayTransition();
                }
+          }
+
+          if (lookForLoad)
+          {
+               Debug.Log("looking for load");
+
+               // Once animation stops playing, load level
+               if (screenTransition.isPlaying == false)
+               {
+                    LoadLevelDetails();
+                    lookForLoad = false;
+                    screenTransition.Play("anim_DotShrink");
+                    Debug.Log("should play shrink anim");
+               }           
           }
      }
 
-     public void LoadLevel()
+     public void LoadLevelDetails(bool restart = false)
      {
           // Clear goal points
           leftGoalPointActivated = false;
@@ -71,7 +87,8 @@ public class LevelManager : MonoBehaviour
           leftCharacter.SetActive(false);
           rightCharacter.SetActive(false);
 
-          currentLevelIndex++;
+          if (!restart)
+               currentLevelIndex++;
 
           // Only if NOT FIRST LEVEL
           if (currentLevelIndex != 0)
@@ -90,6 +107,8 @@ public class LevelManager : MonoBehaviour
           {
                Debug.Log("This is a win condition.");
                PlayWinCard();
+               _audio_1.loop = false;
+               _audio_2.loop = false;
                return;
           }
 
@@ -115,13 +134,19 @@ public class LevelManager : MonoBehaviour
           }
      }
 
-
      void PlayWinCard()
      {
-
           uiCanvas.SetActive(false);
           winCard.transform.parent.gameObject.SetActive(true);
           winCard.Play();
+     }
+
+
+     void PlayTransition()
+     {
+          screenTransition.transform.parent.gameObject.SetActive(true);
+          screenTransition.Play("anim_DotGrow");
+          lookForLoad = true;
      }
 
 
@@ -130,18 +155,35 @@ public class LevelManager : MonoBehaviour
           // if fadeOut_1 is set FALSE, then set _audio_1 clip.
           if (fadeOut_1 == true)
           {
-               fadeOut_1 = false;
+               // assign new clip
                _audio_1.clip = levelList[currentLevelIndex].backgroundMusic;
+
+               // if clip is same as old, remove and and return.
+               if (_audio_1.clip == _audio_2.clip)
+               {
+                    _audio_1.clip = null;
+                    return;
+               }
+
                _audio_1.Play();
+               fadeOut_1 = false;
                return;
           }
 
           // if fadeOut_1 is set TRUE, then set _audio_2 clip.
           if (fadeOut_1 == false)
-          {
-               fadeOut_1 = true;
+          {               
+               // assign new clip
                _audio_2.clip = levelList[currentLevelIndex].backgroundMusic;
+
+               // if clip is same as old, remove and and return.
+               if (_audio_1.clip == _audio_2.clip)
+               {
+                    _audio_2.clip = null;
+                    return;
+               }
                _audio_2.Play();
+               fadeOut_1 = true;
                return;
           }
      }
@@ -199,7 +241,6 @@ public class LevelManager : MonoBehaviour
      public void StartLevelTransition()
      {
           Debug.Log("Starting Level Transition");
-
-          LoadLevel();
+          PlayTransition();
      }
 }

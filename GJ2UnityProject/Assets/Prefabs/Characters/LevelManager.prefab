@@ -194,7 +194,10 @@ MonoBehaviour:
   - levelPrefab: {fileID: 1733010376602653168, guid: 58b9051b5ef5d5a428267b9a64c9cb35,
       type: 3}
     backgroundMusic: {fileID: 8300000, guid: 9582a282ed824b24a871c9c1e9b37c0b, type: 3}
-  - levelPrefab: {fileID: 1733010376602653168, guid: 58b9051b5ef5d5a428267b9a64c9cb35,
+  - levelPrefab: {fileID: 8078704940353163289, guid: e37f2f3789dd39a48aa0a56af9abe912,
+      type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 9582a282ed824b24a871c9c1e9b37c0b, type: 3}
+  - levelPrefab: {fileID: 8078704940353163289, guid: e37f2f3789dd39a48aa0a56af9abe912,
       type: 3}
     backgroundMusic: {fileID: 8300000, guid: 8009eefa0c78cb2478c8597bfc376c13, type: 3}
   currentLevelIndex: 0
@@ -205,6 +208,7 @@ MonoBehaviour:
   fadeSpeed: 0.3
   uiCanvas: {fileID: 0}
   uiImage: {fileID: 0}
+  screenTransition: {fileID: 0}
   winCard: {fileID: 0}
 --- !u!1 &3163838280782391792
 GameObject:

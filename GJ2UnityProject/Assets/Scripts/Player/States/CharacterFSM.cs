@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterPhysics))]
 public class CharacterFSM : MonoBehaviour
@@ -76,6 +77,12 @@ public class CharacterFSM : MonoBehaviour
 
      private void Update()
      {
+          // Restart
+          if (Input.GetButton("Restart"))
+          {
+               _levelManager.LoadLevelDetails(true);
+          }
+
           if (state == State.Moving)
           {
                // Allow movement
