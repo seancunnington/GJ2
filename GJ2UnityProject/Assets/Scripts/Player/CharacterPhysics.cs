@@ -62,6 +62,9 @@ public class CharacterPhysics : MonoBehaviour
           // Reduce the cooldown timer
           if (coolDownTimer > 0f)
                coolDownTimer -= Time.deltaTime;
+
+          if (coolDownTimer < 0.2)
+               allowLevitate = true;
      }
 
 

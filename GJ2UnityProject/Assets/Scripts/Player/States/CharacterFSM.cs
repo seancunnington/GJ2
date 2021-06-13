@@ -23,6 +23,7 @@ public class CharacterFSM : MonoBehaviour
 
      [Header("Planting Components")]
      public GameObject seed;
+     public GameObject sprout;
      public GameObject PlantingReticle;
      [Range(0f, 10f)] public float reticleOffset;
      [Range(0f, 5f)] public float reticleHeight;
@@ -38,6 +39,8 @@ public class CharacterFSM : MonoBehaviour
 
      private void Awake()
      {
+          seed = null;
+
           _levelManager = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>();
           _characterPhysics = GetComponent<CharacterPhysics>();
           PlantingReticle.SetActive(false);
@@ -67,8 +70,12 @@ public class CharacterFSM : MonoBehaviour
                if (character == Character.Left)
                {
                     // Set planting reticle
-                    PlantingReticle.SetActive(true);
-                    SetPlantingReticle();
+                    // If not holding a seed, don't allow planting.
+                    if (seed != null)
+                    {
+                         PlantingReticle.SetActive(true);
+                         SetPlantingReticle();
+                    } 
                }
                
                // Transitions
@@ -77,7 +84,7 @@ public class CharacterFSM : MonoBehaviour
                     if (character == Character.Left)
                     {
                          // See if we planted something
-                         if (CheckForAllowedPlanting())
+                         if (seed != null && CheckForAllowedPlanting())
                          {
                               PlantSeed();
                          }
@@ -95,6 +102,7 @@ public class CharacterFSM : MonoBehaviour
 
      void PlantSeed()
      {
+          // RIGHT SIDE //
           // Get the difference of position from the Left Char and Left Arch
           Vector3 distanceFromLeftArch = PlantingReticle.transform.position - leftArchPoint.transform.position;
 
@@ -104,7 +112,17 @@ public class CharacterFSM : MonoBehaviour
 
           // Create a seed at the new position
           Transform seedParent = _levelManager.currentLoadedLevel.transform;
-          GameObject newSeed = Instantiate(seed, seedPosition, seed.transform.rotation, seedParent);
+          GameObject newPlant = Instantiate(seed, seedPosition, seed.transform.rotation, seedParent);
+
+          // LEFT SIDE //
+          // Create the sprout
+          GameObject newSprout = Instantiate(sprout, PlantingReticle.transform.position, seed.transform.rotation, seedParent);
+
+          // Link the sprout to the bush
+          newSprout.GetComponent<Sprout>().linkedPlant = newPlant;
+
+          // Remove the seed from inventory -- it was used.
+          seed = null;
      }
 
 
@@ -126,6 +144,7 @@ public class CharacterFSM : MonoBehaviour
 
      bool CheckForAllowedPlanting()
      {
+          // Check for Cancel Range
           if (Mathf.Abs(PlantingReticle.transform.localPosition.x) > reticleCancelWeight)
                return true;
 
