@@ -3,13 +3,20 @@
 public class SpringBush : MonoBehaviour
 {
      [Range(0f,200f)] public float springStrength;
+     bool allowForce = true;
+
 
      private void OnTriggerEnter(Collider other)
      {
           if (other.tag == "Player")
           {
                other.GetComponent<CharacterPhysics>().allowLevitate = false;
-               other.GetComponent<Rigidbody>().AddForce(Vector3.up * springStrength, ForceMode.Impulse);
+
+               if (allowForce)
+               {
+                    other.GetComponent<Rigidbody>().AddForce(Vector3.up * springStrength, ForceMode.Impulse);
+                    allowForce = false;
+               }
 
                other.GetComponent<CharacterPhysics>().DisableLevitate();
           }
@@ -20,7 +27,7 @@ public class SpringBush : MonoBehaviour
      {
           if (other.tag == "Player")
           {
-               
+               allowForce = true;
           }
      }
 }

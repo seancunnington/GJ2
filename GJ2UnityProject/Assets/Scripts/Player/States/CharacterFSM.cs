@@ -123,28 +123,28 @@ public class CharacterFSM : MonoBehaviour
           // Left
           if (direction.x < 0)
           {
-               Debug.Log("Anim Left");
+               //Debug.Log("Anim Left");
                _renderer.material.SetTexture("_MainTex", leftPose);
           }
 
           // Right
           if (direction.x > 0)
           {
-               Debug.Log("Anim Right");
+               //Debug.Log("Anim Right");
                _renderer.material.SetTexture("_MainTex", rightPose);
           }
 
           // Up
           if (direction.z > 0)
           {
-               Debug.Log("Anim Forward");
+               //Debug.Log("Anim Forward");
                _renderer.material.SetTexture("_MainTex", forwardPose);
           }
 
           // Down
           if (direction.z < 0)
           {
-               Debug.Log("Anim Back");
+               //Debug.Log("Anim Back");
                _renderer.material.SetTexture("_MainTex", backPose);
           }
      }
@@ -212,9 +212,9 @@ public class CharacterFSM : MonoBehaviour
      void SetPlantingReticle()
      {
           Vector3 newReticlePosition = transform.position + (GetDirection() * reticleOffset);
-          newReticlePosition += new Vector3(0, -reticleHeight, 0);
+          newReticlePosition = new Vector3(newReticlePosition.x, 0f, newReticlePosition.z);
 
-          Vector3 groundHeight = FindPlantingHeight(newReticlePosition);
+          Vector3 groundHeight = FindPlantingHeight(newReticlePosition) + new Vector3(0, -reticleHeight, 0);
 
           PlantingReticle.transform.position = newReticlePosition + new Vector3(0, groundHeight.y, 0);    
      }
