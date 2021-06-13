@@ -10,7 +10,7 @@ public class Seed : MonoBehaviour
      {
           if (other.tag == "Player")
           {
-               // If player does not have a seed yet,
+               // If player already has seed, do nothing.
                if (other.GetComponent<CharacterFSM>().seed != null)
                     return;
 

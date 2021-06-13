@@ -18,6 +18,10 @@ public class Sprout : MonoBehaviour
           {
                if (Input.GetButtonDown("Plant"))
                {
+                    // If player already has seed, do nothing.
+                    if (other.GetComponent<CharacterFSM>().seed != null)
+                         return;
+
                     // Give the ui image
                     other.GetComponent<CharacterFSM>().inventory.sprite = seedSprite;
                     other.GetComponent<CharacterFSM>().inventory.gameObject.SetActive(true);
@@ -37,6 +41,10 @@ public class Sprout : MonoBehaviour
      {
           if (other.tag == "Player")
           {
+               // If player already has seed, do nothing.
+               if (other.GetComponent<CharacterFSM>().seed != null)
+                    return;
+
                reticle.SetActive(true);
           }
      }

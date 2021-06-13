@@ -32,6 +32,8 @@ public class CharacterPhysics : MonoBehaviour
      [SerializeField] private float rideSpringStrength = 1f;
      [SerializeField] private float rideSpringDamper = 1f;
 
+     
+
      #endregion
 
 

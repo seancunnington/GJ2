@@ -328,6 +328,7 @@ MonoBehaviour:
   rideHeight: 2
   rideSpringStrength: 100
   rideSpringDamper: 10
+  rayPoints: []
 --- !u!114 &3179695935789374104
 MonoBehaviour:
   m_ObjectHideFlags: 0
