@@ -814,12 +814,12 @@ PrefabInstance:
         type: 3}
       propertyPath: backPose
       value: 
-      objectReference: {fileID: 2800000, guid: 52692f24ab28a744c8540dcd6cd56dd1, type: 3}
+      objectReference: {fileID: 2800000, guid: f8c79c134caa3ca4bb0a45e692cfe306, type: 3}
     - target: {fileID: 3179695935789374104, guid: e1e0fb78632afc646882551bbe77d261,
         type: 3}
       propertyPath: leftPose
       value: 
-      objectReference: {fileID: 2800000, guid: 0553a6298bc6ca548bfa9ed2c8ecc9e4, type: 3}
+      objectReference: {fileID: 2800000, guid: c83d841c3b2b6b945932419832271321, type: 3}
     - target: {fileID: 3179695935789374104, guid: e1e0fb78632afc646882551bbe77d261,
         type: 3}
       propertyPath: _renderer
@@ -834,12 +834,12 @@ PrefabInstance:
         type: 3}
       propertyPath: rightPose
       value: 
-      objectReference: {fileID: 2800000, guid: b5872a2819066ab4fa159a320922a328, type: 3}
+      objectReference: {fileID: 2800000, guid: c1eece9dcaee3b7498b7e3acc65e3d7d, type: 3}
     - target: {fileID: 3179695935789374104, guid: e1e0fb78632afc646882551bbe77d261,
         type: 3}
       propertyPath: forwardPose
       value: 
-      objectReference: {fileID: 2800000, guid: dc5548dbd44ea09469070583f78f6215, type: 3}
+      objectReference: {fileID: 2800000, guid: 1ffd3ebee0e28d14d8cf42ba8cad9b65, type: 3}
     - target: {fileID: 3179695935789374104, guid: e1e0fb78632afc646882551bbe77d261,
         type: 3}
       propertyPath: reticleHeight
@@ -928,12 +928,12 @@ PrefabInstance:
         type: 3}
       propertyPath: backPose
       value: 
-      objectReference: {fileID: 2800000, guid: 52692f24ab28a744c8540dcd6cd56dd1, type: 3}
+      objectReference: {fileID: 2800000, guid: 22fc89cf5169443428fc02f7203027c8, type: 3}
     - target: {fileID: 7985784646691327251, guid: 9030aae29491d3d498a73bc4bc4f2f8e,
         type: 3}
       propertyPath: leftPose
       value: 
-      objectReference: {fileID: 2800000, guid: 0553a6298bc6ca548bfa9ed2c8ecc9e4, type: 3}
+      objectReference: {fileID: 2800000, guid: cfe38f06677351a4bb4917d387045e0b, type: 3}
     - target: {fileID: 7985784646691327251, guid: 9030aae29491d3d498a73bc4bc4f2f8e,
         type: 3}
       propertyPath: _renderer
@@ -943,12 +943,12 @@ PrefabInstance:
         type: 3}
       propertyPath: rightPose
       value: 
-      objectReference: {fileID: 2800000, guid: b5872a2819066ab4fa159a320922a328, type: 3}
+      objectReference: {fileID: 2800000, guid: ae0a88212c02caf4792d9c4c2e46a851, type: 3}
     - target: {fileID: 7985784646691327251, guid: 9030aae29491d3d498a73bc4bc4f2f8e,
         type: 3}
       propertyPath: forwardPose
       value: 
-      objectReference: {fileID: 2800000, guid: dc5548dbd44ea09469070583f78f6215, type: 3}
+      objectReference: {fileID: 2800000, guid: e3428f184a7675648b5f5563e5659dde, type: 3}
     - target: {fileID: 7985784646691327251, guid: 9030aae29491d3d498a73bc4bc4f2f8e,
         type: 3}
       propertyPath: characterMaterial
