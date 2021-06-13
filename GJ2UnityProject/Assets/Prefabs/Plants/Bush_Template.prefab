@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0e40d7ae30bc949a351a987de8beb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springStrength: 10
+  springStrength: 6
 --- !u!1 &7342212646595152648
 GameObject:
   m_ObjectHideFlags: 0

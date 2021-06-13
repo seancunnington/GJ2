@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7510928731715705418}
   - component: {fileID: 8529862743212535784}
   m_Layer: 0
-  m_Name: RightGoalPoint
+  m_Name: GoalPoint_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7510928731715705421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.8, y: 2.311882, z: 13.381839}
-  m_LocalScale: {x: 8.223602, y: 8.223602, z: 8.223602}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

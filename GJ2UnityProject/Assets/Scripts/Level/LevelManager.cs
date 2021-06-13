@@ -7,7 +7,6 @@ public class Level
      public AudioClip backgroundMusic;
 }
 
-
 public class LevelManager : MonoBehaviour
 {
      public GameObject leftCharacter;
@@ -23,6 +22,10 @@ public class LevelManager : MonoBehaviour
      [SerializeField] int currentLevelIndex = -1;
      public GameObject currentLoadedLevel;
 
+     public AudioSource _audio_1;
+     public AudioSource _audio_2;
+     public bool fadeOut_1 = false;
+     public float fadeSpeed = 1f;
 
      private void Awake()
      {
@@ -30,6 +33,11 @@ public class LevelManager : MonoBehaviour
           LoadLevel();
      }
 
+
+     private void Update()
+     {
+          AudioTransition();
+     }
 
      public void LoadLevel()
      {
@@ -59,6 +67,9 @@ public class LevelManager : MonoBehaviour
                currentLoadedLevel = Instantiate(levelList[currentLevelIndex].levelPrefab);
           }
 
+          // Play this level's audio
+          StartAudioTransition();
+
           // Set new character positions
           FindStartingPoints();
           leftCharacter.transform.position = leftStartingPoint.transform.position + new Vector3(0, 2, 0);
@@ -73,6 +84,58 @@ public class LevelManager : MonoBehaviour
           rightCharacter.SetActive(true);
      }
 
+
+     void StartAudioTransition()
+     {
+          // if fadeOut_1 is set FALSE, then set _audio_1 clip.
+          if (fadeOut_1 == true)
+          {
+               fadeOut_1 = false;
+               _audio_1.clip = levelList[currentLevelIndex].backgroundMusic;
+               _audio_1.Play();
+               return;
+          }
+
+          // if fadeOut_1 is set TRUE, then set _audio_2 clip.
+          if (fadeOut_1 == false)
+          {
+               fadeOut_1 = true;
+               _audio_2.clip = levelList[currentLevelIndex].backgroundMusic;
+               _audio_2.Play();
+               return;
+          }
+     }
+
+
+     void AudioTransition()
+     {
+          // if fadeOut_1 is currently FALSE, then increase _audio_1 volume.
+          if (fadeOut_1 == false)
+          {
+               if (_audio_1.volume < 0.3f)
+                    _audio_1.volume += Time.deltaTime * fadeSpeed;
+
+               if (_audio_2.volume > 0f)
+                    _audio_2.volume -= Time.deltaTime * fadeSpeed;
+          }
+
+          // if fadeOut_1 is currently TRUE, then decrease _audio_1 volume.
+          if (fadeOut_1 == true)
+          {
+               if (_audio_1.volume > 0f)
+                    _audio_1.volume -= Time.deltaTime * fadeSpeed;
+
+               if (_audio_2.volume < 0.3f)
+                    _audio_2.volume += Time.deltaTime * fadeSpeed;
+          }
+
+          // If either audio volume is 0, set null.
+          if (_audio_1.volume <= 0)
+               _audio_1.clip = null;
+
+          if (_audio_2.volume <= 0)
+               _audio_2.clip = null;
+     }
 
      void FindStartingPoints()
      {
