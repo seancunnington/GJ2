@@ -31,7 +31,8 @@ public class CharacterFSM : MonoBehaviour
      [Header("Planting Components")]
      public GameObject seed;
      public GameObject sprout;
-     public GameObject PlantingReticle;
+     public GameObject PlantingReticle_Left;
+     public GameObject PlantingReticle_Right;
      [Range(0f, 10f)] public float reticleOffset;
      public float reticleHeight;
      [Range(0f, 5f)] public float reticleCancelWeight;
@@ -39,6 +40,10 @@ public class CharacterFSM : MonoBehaviour
      public LayerMask surfaceDetectionMask;
 
      public Image inventory;
+
+     public AudioClip creationSound;
+     public AudioClip destroySound;
+     AudioSource _audioSource;
 
      CharacterPhysics _characterPhysics;
      LevelManager _levelManager;
@@ -57,7 +62,13 @@ public class CharacterFSM : MonoBehaviour
 
           _levelManager = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>();
           _characterPhysics = GetComponent<CharacterPhysics>();
-          PlantingReticle.SetActive(false);
+          _audioSource = GetComponent<AudioSource>();
+
+          if (character == Character.Left)
+          {
+               PlantingReticle_Left.SetActive(false);
+               PlantingReticle_Right.SetActive(false);
+          }
      }
 
 
@@ -89,7 +100,8 @@ public class CharacterFSM : MonoBehaviour
                     // If not holding a seed, don't allow planting.
                     if (seed != null)
                     {
-                         PlantingReticle.SetActive(true);
+                         PlantingReticle_Left.SetActive(true);
+                         PlantingReticle_Right.SetActive(true);
                          SetPlantingReticle();
                     } 
                }
@@ -107,11 +119,31 @@ public class CharacterFSM : MonoBehaviour
                     }
 
                     // Hide planting reticle
-                    PlantingReticle.SetActive(false);
+                    if (character == Character.Left)
+                    {
+                         PlantingReticle_Left.SetActive(false);
+                         PlantingReticle_Right.SetActive(false);
+                    }
 
                     // Transition
                     state = State.Moving;
                }
+          }
+     }
+
+
+     public void PlaySound(string sound)
+     {
+          if (sound == "create")
+          {
+               _audioSource.clip = creationSound;
+               _audioSource.Play();
+          }
+
+          if (sound == "destroy")
+          {
+               _audioSource.clip = destroySound;
+               _audioSource.Play();
           }
      }
 
@@ -154,7 +186,7 @@ public class CharacterFSM : MonoBehaviour
      {
           // RIGHT SIDE //
           // Get the difference of position from the Left Char and Left Arch
-          Vector3 distanceFromLeftArch = PlantingReticle.transform.position - leftArchPoint.transform.position;
+          Vector3 distanceFromLeftArch = PlantingReticle_Left.transform.position - leftArchPoint.transform.position;
 
           // Apply that difference to the Right Arch position
           Vector3 positionFromRightArch = distanceFromLeftArch + rightArchPoint.transform.position;
@@ -166,13 +198,16 @@ public class CharacterFSM : MonoBehaviour
 
           // LEFT SIDE //
           // Create the sprout
-          GameObject newSprout = Instantiate(sprout, PlantingReticle.transform.position, seed.transform.rotation, seedParent);
+          GameObject newSprout = Instantiate(sprout, PlantingReticle_Left.transform.position, seed.transform.rotation, seedParent);
 
           // Link the sprout to the bush
           newSprout.GetComponent<Sprout>().linkedPlant = newPlant;
 
           // Hide the ui inventory element
           inventory.gameObject.SetActive(false);
+
+          // Play sound
+          PlaySound("create");
 
           // Remove the seed from inventory -- it was used.
           seed = null;
@@ -198,10 +233,10 @@ public class CharacterFSM : MonoBehaviour
      bool CheckForAllowedPlanting()
      {
           // Check for Cancel Range
-          if (Mathf.Abs(PlantingReticle.transform.localPosition.x) > reticleCancelWeight)
+          if (Mathf.Abs(PlantingReticle_Left.transform.localPosition.x) > reticleCancelWeight)
                return true;
 
-          else if (Mathf.Abs(PlantingReticle.transform.localPosition.z) > reticleCancelWeight)
+          else if (Mathf.Abs(PlantingReticle_Left.transform.localPosition.z) > reticleCancelWeight)
                return true;
 
           else
@@ -211,12 +246,22 @@ public class CharacterFSM : MonoBehaviour
 
      void SetPlantingReticle()
      {
-          Vector3 newReticlePosition = transform.position + (GetDirection() * reticleOffset);
-          newReticlePosition = new Vector3(newReticlePosition.x, 0f, newReticlePosition.z);
+          // Left Reticle
+          Vector3 leftReticlePosition = transform.position + (GetDirection() * reticleOffset);
+          leftReticlePosition = new Vector3(leftReticlePosition.x, 0f, leftReticlePosition.z);
 
-          Vector3 groundHeight = FindPlantingHeight(newReticlePosition) + new Vector3(0, -reticleHeight, 0);
+          Vector3 groundHeight = FindPlantingHeight(leftReticlePosition) + new Vector3(0, -reticleHeight, 0);
 
-          PlantingReticle.transform.position = newReticlePosition + new Vector3(0, groundHeight.y, 0);    
+          PlantingReticle_Left.transform.position = leftReticlePosition + new Vector3(0, groundHeight.y, 0);
+
+          // Right Reticle
+          // Get the difference of position from the Left Char and Left Arch
+          Vector3 distanceFromLeftArch = PlantingReticle_Left.transform.position - leftArchPoint.transform.position;
+
+          // Apply that difference to the Right Arch position
+          Vector3 positionFromRightArch = distanceFromLeftArch + rightArchPoint.transform.position;
+
+          PlantingReticle_Right.transform.position = FindPlantingHeight(positionFromRightArch) + new Vector3(0, -reticleHeight, 0);
      }
 
 

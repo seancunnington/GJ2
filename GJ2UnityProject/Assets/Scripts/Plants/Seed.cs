@@ -18,6 +18,9 @@ public class Seed : MonoBehaviour
                other.GetComponent<CharacterFSM>().inventory.sprite = seedSprite;
                other.GetComponent<CharacterFSM>().inventory.gameObject.SetActive(true);
 
+               // Play Sound
+               other.GetComponent<CharacterFSM>().PlaySound("create");
+
                // Destroy this instance
                Destroy(this.gameObject);
           }

@@ -22,6 +22,10 @@ public class Sprout : MonoBehaviour
                     other.GetComponent<CharacterFSM>().inventory.sprite = seedSprite;
                     other.GetComponent<CharacterFSM>().inventory.gameObject.SetActive(true);
 
+                    // Play destroy sound
+                    other.GetComponent<CharacterFSM>().PlaySound("destroy");
+
+                    // Destroy plants
                     other.GetComponent<CharacterFSM>().seed = originalSeed;
                     Destroy(linkedPlant.gameObject);
                     Destroy(this.gameObject);

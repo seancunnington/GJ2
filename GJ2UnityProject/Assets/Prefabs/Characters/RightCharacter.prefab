@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2785043173561795177
 Transform:
   m_ObjectHideFlags: 0
@@ -247,10 +247,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: 1
   state: 0
+  leftPose: {fileID: 0}
+  rightPose: {fileID: 0}
+  backPose: {fileID: 0}
+  forwardPose: {fileID: 0}
+  _renderer: {fileID: 0}
   leftArchPoint: {fileID: 0}
   rightArchPoint: {fileID: 0}
   seed: {fileID: 0}
-  PlantingReticle: {fileID: 2785043173561795176}
+  sprout: {fileID: 0}
+  PlantingReticle_Left: {fileID: 0}
+  PlantingReticle_Right: {fileID: 0}
   reticleOffset: 2
   reticleHeight: 0.7
   reticleCancelWeight: 1
@@ -258,6 +265,9 @@ MonoBehaviour:
   surfaceDetectionMask:
     serializedVersion: 2
     m_Bits: 256
+  inventory: {fileID: 0}
+  creationSound: {fileID: 0}
+  destroySound: {fileID: 0}
 --- !u!1001 &5105668708294450401
 PrefabInstance:
   m_ObjectHideFlags: 0
