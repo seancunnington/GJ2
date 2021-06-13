@@ -1179,6 +1179,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1_Lighting
       objectReference: {fileID: 0}
+    - target: {fileID: 3121517520854323916, guid: 313b8fb1cc53a1e46a4680500c72c68b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 313b8fb1cc53a1e46a4680500c72c68b, type: 3}
 --- !u!4 &7092701382567633559 stripped

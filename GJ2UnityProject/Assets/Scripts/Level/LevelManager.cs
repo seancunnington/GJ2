@@ -9,6 +9,8 @@ public class Level
 
 public class LevelManager : MonoBehaviour
 {
+     public bool titleScreenLevel = true;
+
      public GameObject leftCharacter;
      public GameObject rightCharacter;
 
@@ -29,6 +31,7 @@ public class LevelManager : MonoBehaviour
 
      private void Awake()
      {
+          titleScreenLevel = true;
           currentLevelIndex = -1;
           LoadLevel();
      }
@@ -37,6 +40,16 @@ public class LevelManager : MonoBehaviour
      private void Update()
      {
           AudioTransition();
+
+          // If on the title screen, be able to progress
+          if (titleScreenLevel)
+          {
+               if (Input.GetButtonDown("Plant"))
+               {
+                    titleScreenLevel = false;
+                    LoadLevel();
+               }
+          }
      }
 
      public void LoadLevel()
@@ -70,18 +83,25 @@ public class LevelManager : MonoBehaviour
           // Play this level's audio
           StartAudioTransition();
 
-          // Set new character positions
-          FindStartingPoints();
-          leftCharacter.transform.position = leftStartingPoint.transform.position + new Vector3(0, 2, 0);
-          rightCharacter.transform.position = rightStartingPoint.transform.position + new Vector3(0, 2, 0);
+          if (!titleScreenLevel)
+          {
+               // Set new character positions
+               FindStartingPoints();
+               leftCharacter.transform.position = leftStartingPoint.transform.position + new Vector3(0, 2, 0);
+               rightCharacter.transform.position = rightStartingPoint.transform.position + new Vector3(0, 2, 0);
 
-          // Set left character's arch positions
-          leftCharacter.GetComponent<CharacterFSM>().leftArchPoint = leftStartingPoint;
-          leftCharacter.GetComponent<CharacterFSM>().rightArchPoint = rightStartingPoint;
+               // Set left character's arch positions
+               leftCharacter.GetComponent<CharacterFSM>().leftArchPoint = leftStartingPoint;
+               leftCharacter.GetComponent<CharacterFSM>().rightArchPoint = rightStartingPoint;
 
-          // Reactivate characters
-          leftCharacter.SetActive(true);
-          rightCharacter.SetActive(true);
+               // Get rid of all seeds and sprouts
+               leftCharacter.GetComponent<CharacterFSM>().seed = null;
+               leftCharacter.GetComponent<CharacterFSM>().sprout = null;
+
+               // Reactivate characters
+               leftCharacter.SetActive(true);
+               rightCharacter.SetActive(true);
+          }
      }
 
 

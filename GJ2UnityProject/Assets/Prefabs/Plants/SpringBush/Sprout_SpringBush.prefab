@@ -163,9 +163,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedPlant: {fileID: 0}
-  originalSeed: {fileID: 6552298134933383302, guid: 7cbed36ac8f210445af0cf57eba895f9,
+  originalSeed: {fileID: 7342212646595152648, guid: e118f9b3d3c5e0b439bba3b70a07b8a9,
     type: 3}
   reticle: {fileID: 1822165004}
+  seedSprite: {fileID: 21300000, guid: 107846e82f785424fb8717204c9b3c9c, type: 3}
 --- !u!1 &7592318227220255835
 GameObject:
   m_ObjectHideFlags: 0

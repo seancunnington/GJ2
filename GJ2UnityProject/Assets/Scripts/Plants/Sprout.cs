@@ -5,6 +5,7 @@ public class Sprout : MonoBehaviour
      public GameObject linkedPlant;
      public GameObject originalSeed;
      public GameObject reticle;
+     public Sprite seedSprite;
 
      private void Awake()
      {
@@ -17,6 +18,10 @@ public class Sprout : MonoBehaviour
           {
                if (Input.GetButtonDown("Plant"))
                {
+                    // Give the ui image
+                    other.GetComponent<CharacterFSM>().inventory.sprite = seedSprite;
+                    other.GetComponent<CharacterFSM>().inventory.gameObject.SetActive(true);
+
                     other.GetComponent<CharacterFSM>().seed = originalSeed;
                     Destroy(linkedPlant.gameObject);
                     Destroy(this.gameObject);

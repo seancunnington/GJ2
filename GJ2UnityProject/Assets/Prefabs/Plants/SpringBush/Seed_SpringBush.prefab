@@ -151,3 +151,4 @@ MonoBehaviour:
     type: 3}
   sproutPrefab: {fileID: 3647719603481741512, guid: 77a942e707b022449ba28c01e4676339,
     type: 3}
+  seedSprite: {fileID: 21300000, guid: 107846e82f785424fb8717204c9b3c9c, type: 3}
