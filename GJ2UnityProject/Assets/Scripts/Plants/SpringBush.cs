@@ -10,6 +10,8 @@ public class SpringBush : MonoBehaviour
           {
                other.GetComponent<CharacterPhysics>().allowLevitate = false;
                other.GetComponent<Rigidbody>().AddForce(Vector3.up * springStrength, ForceMode.Impulse);
+
+               other.GetComponent<CharacterPhysics>().DisableLevitate();
           }
      }
 
@@ -18,7 +20,7 @@ public class SpringBush : MonoBehaviour
      {
           if (other.tag == "Player")
           {
-               other.GetComponent<CharacterPhysics>().DisableLevitate();
+               
           }
      }
 }
