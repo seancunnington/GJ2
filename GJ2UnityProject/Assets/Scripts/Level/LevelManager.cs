@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Level
@@ -29,9 +30,16 @@ public class LevelManager : MonoBehaviour
      public bool fadeOut_1 = false;
      public float fadeSpeed = 1f;
 
+     public GameObject uiCanvas;
+     public Image uiImage;
+
+     public Animation winCard;
+
      private void Awake()
      {
+          winCard.transform.parent.gameObject.SetActive(false);
           titleScreenLevel = true;
+          uiCanvas.SetActive(false);
           currentLevelIndex = -1;
           LoadLevel();
      }
@@ -47,6 +55,7 @@ public class LevelManager : MonoBehaviour
                if (Input.GetButtonDown("Plant"))
                {
                     titleScreenLevel = false;
+                    uiCanvas.SetActive(true);
                     LoadLevel();
                }
           }
@@ -64,12 +73,6 @@ public class LevelManager : MonoBehaviour
 
           currentLevelIndex++;
 
-          if ( currentLevelIndex == (levelList.Length))
-          {
-               Debug.Log("This is a win condition.");
-               return;
-          }
-
           // Only if NOT FIRST LEVEL
           if (currentLevelIndex != 0)
           {
@@ -82,6 +85,13 @@ public class LevelManager : MonoBehaviour
 
           // Play this level's audio
           StartAudioTransition();
+
+          if (currentLevelIndex == (levelList.Length - 1))
+          {
+               Debug.Log("This is a win condition.");
+               PlayWinCard();
+               return;
+          }
 
           if (!titleScreenLevel)
           {
@@ -97,11 +107,21 @@ public class LevelManager : MonoBehaviour
                // Get rid of all seeds and sprouts
                leftCharacter.GetComponent<CharacterFSM>().seed = null;
                leftCharacter.GetComponent<CharacterFSM>().sprout = null;
+               uiImage.gameObject.SetActive(false);
 
                // Reactivate characters
                leftCharacter.SetActive(true);
                rightCharacter.SetActive(true);
           }
+     }
+
+
+     void PlayWinCard()
+     {
+
+          uiCanvas.SetActive(false);
+          winCard.transform.parent.gameObject.SetActive(true);
+          winCard.Play();
      }
 
 
