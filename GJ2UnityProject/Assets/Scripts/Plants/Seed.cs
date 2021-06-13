@@ -10,6 +10,10 @@ public class Seed : MonoBehaviour
      {
           if (other.tag == "Player")
           {
+               // If player does not have a seed yet,
+               if (other.GetComponent<CharacterFSM>().seed != null)
+                    return;
+
                // Give the player the seed and sprout
                other.GetComponent<CharacterFSM>().seed = plantPrefab;
                other.GetComponent<CharacterFSM>().sprout = sproutPrefab;
@@ -23,6 +27,7 @@ public class Seed : MonoBehaviour
 
                // Destroy this instance
                Destroy(this.gameObject);
-          }
+               
+          }               
      }
 }

@@ -37,7 +37,9 @@ public class CharacterFSM : MonoBehaviour
      public float reticleHeight;
      [Range(0f, 5f)] public float reticleCancelWeight;
      [Range(0f, 500f)] public float plantingHeightCheck;
+
      public LayerMask surfaceDetectionMask;
+     public LayerMask cancelMask;
 
      public Image inventory;
 
@@ -112,7 +114,7 @@ public class CharacterFSM : MonoBehaviour
                     if (character == Character.Left)
                     {
                          // See if we planted something
-                         if (seed != null && CheckForAllowedPlanting())
+                         if (seed != null && CheckForAllowedPlanting(PlantingReticle_Left.transform.position))
                          {
                               PlantSeed();
                          }
@@ -192,6 +194,10 @@ public class CharacterFSM : MonoBehaviour
           Vector3 positionFromRightArch = distanceFromLeftArch + rightArchPoint.transform.position;
           Vector3 seedPosition = FindPlantingHeight(positionFromRightArch);
 
+          // if invalid position, don't plant
+          if (seedPosition == new Vector3(-11, -11, -11))
+               return;
+
           // Create a seed at the new position
           Transform seedParent = _levelManager.currentLoadedLevel.transform;
           GameObject newPlant = Instantiate(seed, seedPosition, seed.transform.rotation, seedParent);
@@ -220,8 +226,12 @@ public class CharacterFSM : MonoBehaviour
           Vector3 startPosition = plantPosition + new Vector3(0, plantingHeightCheck, 0);
 
           // Find the first ground from the top down.
-          bool rayDown = Physics.Raycast(startPosition, Vector3.down, out rayHit, plantingHeightCheck*2, surfaceDetectionMask);
+          bool cancelRayDown = Physics.Raycast(startPosition, Vector3.down, out rayHit, plantingHeightCheck * 2, cancelMask);
+          if (cancelRayDown)
+               return rayHit.point;
 
+          // Find the first ground from the top down.
+          bool rayDown = Physics.Raycast(startPosition, Vector3.down, out rayHit, plantingHeightCheck*2, surfaceDetectionMask);       
           if (rayDown)
                return rayHit.point;
 
@@ -230,8 +240,16 @@ public class CharacterFSM : MonoBehaviour
      }
 
 
-     bool CheckForAllowedPlanting()
+     bool CheckForAllowedPlanting(Vector3 plantPosition)
      {
+          RaycastHit rayHit;
+          Vector3 startPosition = plantPosition + new Vector3(0, plantingHeightCheck, 0);
+
+          // Find the first ground from the top down.
+          bool cancelRayDown = Physics.Raycast(startPosition, Vector3.down, out rayHit, plantingHeightCheck * 2, cancelMask);
+          if (cancelRayDown)
+               return false;
+
           // Check for Cancel Range
           if (Mathf.Abs(PlantingReticle_Left.transform.localPosition.x) > reticleCancelWeight)
                return true;
