@@ -190,8 +190,11 @@ MonoBehaviour:
     backgroundMusic: {fileID: 8300000, guid: 7bfcd36e3ff74fd45a6010ce51472617, type: 3}
   - levelPrefab: {fileID: 1733010376602653168, guid: db37268388a1b30478b2b036e13bc950,
       type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 7bfcd36e3ff74fd45a6010ce51472617, type: 3}
+  - levelPrefab: {fileID: 1733010376602653168, guid: 58b9051b5ef5d5a428267b9a64c9cb35,
+      type: 3}
     backgroundMusic: {fileID: 8300000, guid: 9582a282ed824b24a871c9c1e9b37c0b, type: 3}
-  - levelPrefab: {fileID: 1733010376602653168, guid: db37268388a1b30478b2b036e13bc950,
+  - levelPrefab: {fileID: 1733010376602653168, guid: 58b9051b5ef5d5a428267b9a64c9cb35,
       type: 3}
     backgroundMusic: {fileID: 8300000, guid: 8009eefa0c78cb2478c8597bfc376c13, type: 3}
   currentLevelIndex: 0
